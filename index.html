@@ -6,6 +6,10 @@
 <title>Бриф — Viyar Media Production</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <style>
 :root {
   --bg: #0a0a0a;
@@ -29,9 +33,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Manrope', sans-serif;
   background: var(--bg);
@@ -40,7 +42,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ── NOISE TEXTURE ── */
 body::before {
   content: '';
   position: fixed;
@@ -59,20 +60,149 @@ body::before {
   z-index: 1;
 }
 
+/* ── AUTH GATE ── */
+.auth-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 24px;
+}
+
+.auth-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.auth-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.auth-logo span { color: var(--accent); }
+
+.auth-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.auth-sub {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.auth-google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 24px;
+  background: #fff;
+  color: #1f1f1f;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.01em;
+}
+.auth-google-btn:hover {
+  background: #f0f0f0;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+.auth-google-btn svg { flex-shrink: 0; }
+.auth-note {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* ── USER BAR ── */
+.user-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 0;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border2);
+}
+.user-avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}
+.user-logout {
+  font-size: 11px;
+  color: var(--text3);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+.user-logout:hover { color: var(--danger); }
+
 /* ── HEADER ── */
 .header {
-  padding: 48px 0 56px;
+  padding: 32px 0 48px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 48px;
 }
-
 .header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 32px;
 }
-
 .logo {
   font-family: 'Unbounded', sans-serif;
   font-size: 14px;
@@ -81,10 +211,7 @@ body::before {
   color: var(--text);
   text-transform: uppercase;
 }
-
-.logo span {
-  color: var(--accent);
-}
+.logo span { color: var(--accent); }
 
 .badge-studio {
   font-size: 11px;
@@ -96,7 +223,6 @@ body::before {
   border-radius: var(--radius-pill);
   color: var(--text2);
 }
-
 .header h1 {
   font-family: 'Unbounded', sans-serif;
   font-size: clamp(28px, 5vw, 48px);
@@ -105,11 +231,7 @@ body::before {
   letter-spacing: -0.02em;
   margin-bottom: 16px;
 }
-
-.header h1 span {
-  color: var(--accent);
-}
-
+.header h1 span { color: var(--accent); }
 .header-sub {
   font-size: 15px;
   color: var(--text2);
@@ -131,14 +253,12 @@ body::before {
   padding-left: 24px;
   padding-right: 24px;
 }
-
 .progress-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
-
 .progress-label {
   font-size: 12px;
   font-weight: 600;
@@ -146,20 +266,17 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-
 .progress-pct {
   font-size: 12px;
   font-weight: 700;
   color: var(--accent);
 }
-
 .progress-bar {
   height: 3px;
   background: var(--border);
   border-radius: 2px;
   overflow: hidden;
 }
-
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent), var(--accent2));
@@ -167,14 +284,12 @@ body::before {
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   width: 0%;
 }
-
 .steps-dots {
   display: flex;
   gap: 6px;
   margin-top: 10px;
   flex-wrap: wrap;
 }
-
 .step-dot {
   font-size: 10px;
   font-weight: 600;
@@ -188,38 +303,19 @@ body::before {
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
-
-.step-dot.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(200, 255, 0, 0.08);
-}
-
-.step-dot.done {
-  border-color: var(--success);
-  color: var(--success);
-  background: rgba(0, 214, 143, 0.08);
-}
+.step-dot.active { border-color: var(--accent); color: var(--accent); background: rgba(200, 255, 0, 0.08); }
+.step-dot.done   { border-color: var(--success); color: var(--success); background: rgba(0, 214, 143, 0.08); }
 
 /* ── STEP PANEL ── */
-.step-panel {
-  display: none;
-  animation: fadeUp 0.3s ease;
-}
-
-.step-panel.active {
-  display: block;
-}
+.step-panel { display: none; animation: fadeUp 0.3s ease; }
+.step-panel.active { display: block; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.step-header {
-  margin-bottom: 36px;
-}
-
+.step-header { margin-bottom: 36px; }
 .step-num {
   font-size: 11px;
   font-weight: 700;
@@ -228,7 +324,6 @@ body::before {
   color: var(--accent);
   margin-bottom: 8px;
 }
-
 .step-title {
   font-family: 'Unbounded', sans-serif;
   font-size: clamp(18px, 3vw, 26px);
@@ -237,7 +332,6 @@ body::before {
   letter-spacing: -0.02em;
   margin-bottom: 8px;
 }
-
 .step-desc {
   font-size: 14px;
   color: var(--text2);
@@ -245,29 +339,16 @@ body::before {
 }
 
 /* ── FIELDS ── */
-.field-group {
-  margin-bottom: 28px;
-}
-
+.field-group { margin-bottom: 28px; }
 .field-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-
 @media (max-width: 560px) {
   .field-grid { grid-template-columns: 1fr; }
   .mood-grid { grid-template-columns: repeat(2, 1fr) !important; }
-}
-
-.field-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-}
-
-@media (max-width: 560px) {
-  .field-grid-3 { grid-template-columns: 1fr; }
+  .prio-grid { grid-template-columns: 1fr !important; }
 }
 
 .flabel {
@@ -281,9 +362,7 @@ body::before {
   align-items: center;
   gap: 5px;
 }
-
 .req { color: var(--accent2); }
-
 .fhint {
   font-size: 12px;
   color: var(--text3);
@@ -305,14 +384,15 @@ body::before {
   appearance: none;
   -webkit-appearance: none;
 }
-
 .finput:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.1);
 }
-
+.finput.error-field {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(255,68,68,0.1);
+}
 .finput::placeholder { color: var(--text3); }
-
 select.finput {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -320,15 +400,12 @@ select.finput {
   padding-right: 40px;
   cursor: pointer;
 }
-
 select.finput option { background: var(--bg2); }
-
 textarea.finput {
   resize: vertical;
   min-height: 90px;
   line-height: 1.6;
 }
-
 .char-count {
   font-size: 11px;
   color: var(--text3);
@@ -336,8 +413,73 @@ textarea.finput {
   margin-top: 5px;
   transition: color 0.2s;
 }
-
 .char-count.over { color: var(--danger); }
+
+/* ── VALIDATION ERROR ── */
+.field-error {
+  font-size: 11px;
+  color: var(--danger);
+  margin-top: 5px;
+  display: none;
+}
+.field-error.visible { display: block; }
+
+/* ── PHONE INPUT WITH FLAG ── */
+.phone-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.phone-prefix {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--text2);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Manrope', sans-serif;
+}
+.phone-prefix select {
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  font-size: 13px;
+  font-family: 'Manrope', sans-serif;
+  outline: none;
+  cursor: pointer;
+  padding-right: 4px;
+}
+.phone-prefix select option { background: var(--bg2); }
+
+/* ── CONTACT MODE TOGGLE ── */
+.contact-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.ctog-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text2);
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.ctog-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,255,0,0.08);
+}
 
 /* ── TAGS / CHIPS ── */
 .tag-group {
@@ -345,7 +487,6 @@ textarea.finput {
   flex-wrap: wrap;
   gap: 8px;
 }
-
 .tag {
   font-size: 13px;
   font-weight: 500;
@@ -359,13 +500,84 @@ textarea.finput {
   user-select: none;
   line-height: 1;
 }
-
 .tag:hover { border-color: var(--text2); color: var(--text); }
+.tag.on   { background: rgba(200,255,0,0.12);  border-color: var(--accent);  color: var(--accent);  }
+.tag.on-w { background: rgba(255,107,53,0.12); border-color: var(--accent2); color: var(--accent2); }
+.tag.on-p { background: rgba(123,97,255,0.12); border-color: var(--accent3); color: var(--accent3); }
+.tag.on-s { background: rgba(0,214,143,0.12);  border-color: var(--success); color: var(--success); }
 
-.tag.on        { background: rgba(200,255,0,0.12);  border-color: var(--accent);  color: var(--accent);  }
-.tag.on-w      { background: rgba(255,107,53,0.12); border-color: var(--accent2); color: var(--accent2); }
-.tag.on-p      { background: rgba(123,97,255,0.12); border-color: var(--accent3); color: var(--accent3); }
-.tag.on-s      { background: rgba(0,214,143,0.12);  border-color: var(--success); color: var(--success); }
+/* ── CONTENT TYPE CARDS ── */
+.ctype-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 560px) { .ctype-grid { grid-template-columns: 1fr; } }
+
+.ctype-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  background: var(--bg2);
+  transition: all 0.2s;
+  position: relative;
+}
+.ctype-card:hover { border-color: var(--border2); background: var(--bg3); }
+.ctype-card.on-w { border-color: var(--accent2); background: rgba(255,107,53,0.07); }
+
+.ctype-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.ctype-icon { font-size: 20px; }
+.ctype-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.ctype-card.on-w .ctype-name { color: var(--accent2); }
+.ctype-note {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.4;
+}
+.ctype-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: rgba(255,107,53,0.15);
+  color: var(--accent2);
+  border: 1px solid rgba(255,107,53,0.3);
+  display: none;
+}
+.ctype-card.on-w .ctype-badge { display: block; }
+
+/* ── PHOTO FLOW SUB ── */
+.photo-sub {
+  background: rgba(255,107,53,0.06);
+  border: 1px solid rgba(255,107,53,0.2);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-top: 8px;
+  display: none;
+}
+.photo-sub.visible { display: block; }
+.photo-sub-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent2);
+  margin-bottom: 10px;
+}
 
 /* ── MOOD GRID ── */
 .mood-grid {
@@ -373,7 +585,6 @@ textarea.finput {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
-
 .mood-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -383,16 +594,9 @@ textarea.finput {
   background: var(--bg2);
   transition: all 0.2s;
 }
-
 .mood-card:hover { border-color: var(--border2); background: var(--bg3); }
-
-.mood-card.on {
-  border-color: var(--accent);
-  background: rgba(200, 255, 0, 0.07);
-}
-
+.mood-card.on { border-color: var(--accent); background: rgba(200, 255, 0, 0.07); }
 .mood-icon { font-size: 22px; margin-bottom: 7px; }
-
 .mood-label {
   font-size: 11px;
   font-weight: 600;
@@ -401,7 +605,6 @@ textarea.finput {
   color: var(--text2);
   line-height: 1.3;
 }
-
 .mood-card.on .mood-label { color: var(--accent); }
 
 /* ── PRIORITY ── */
@@ -410,7 +613,6 @@ textarea.finput {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
-
 .pcard {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -420,20 +622,63 @@ textarea.finput {
   transition: all 0.2s;
   text-align: center;
 }
-
 .pcard:hover { border-color: var(--border2); background: var(--bg3); }
-
 .pcard.on-1 { border-color: var(--danger);  background: rgba(255,68,68,0.08);  }
 .pcard.on-1 .pt { color: var(--danger); }
 .pcard.on-2 { border-color: var(--warn);    background: rgba(255,176,32,0.08); }
 .pcard.on-2 .pt { color: var(--warn); }
 .pcard.on-3 { border-color: var(--success); background: rgba(0,214,143,0.08); }
 .pcard.on-3 .pt { color: var(--success); }
-
 .pt { font-size: 14px; font-weight: 700; color: var(--text2); margin-bottom: 4px; transition: color 0.2s; }
 .ps { font-size: 11px; color: var(--text3); }
 
-/* ── WARNING BOX ── */
+/* ── DEADLINE UX ── */
+.deadline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.deadline-quick {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dq-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.15s;
+  font-family: 'Manrope', sans-serif;
+}
+.dq-btn:hover { border-color: var(--text2); color: var(--text); }
+.dq-btn.sel { border-color: var(--accent); color: var(--accent); background: rgba(200,255,0,0.08); }
+
+.event-field {
+  display: none;
+  margin-top: 4px;
+}
+.event-field.visible { display: block; }
+.event-field input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid rgba(255,107,53,0.3);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.event-field input:focus { border-color: var(--accent2); }
+.event-field input::placeholder { color: var(--text3); }
+
+/* ── WARNING / INFO BOXES ── */
 .warn-box {
   background: rgba(255, 176, 32, 0.08);
   border: 1px solid rgba(255, 176, 32, 0.25);
@@ -447,7 +692,6 @@ textarea.finput {
   gap: 10px;
   align-items: flex-start;
 }
-
 .info-box {
   background: rgba(123, 97, 255, 0.07);
   border: 1px solid rgba(123, 97, 255, 0.2);
@@ -471,7 +715,6 @@ textarea.finput {
   padding-top: 24px;
   border-top: 1px solid var(--border);
 }
-
 .btn {
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
@@ -484,33 +727,24 @@ textarea.finput {
   outline: none;
   letter-spacing: 0.02em;
 }
-
 .btn-ghost {
   background: transparent;
   border: 1px solid var(--border2);
   color: var(--text2);
 }
-
 .btn-ghost:hover { border-color: var(--text2); color: var(--text); }
-
-.btn-primary {
-  background: var(--accent);
-  color: #0a0a0a;
-}
-
+.btn-primary { background: var(--accent); color: #0a0a0a; }
 .btn-primary:hover {
   background: #d4ff1a;
   box-shadow: 0 0 24px rgba(200, 255, 0, 0.35);
   transform: translateY(-1px);
 }
-
 .btn-primary:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
-
 .nav-step-info {
   font-size: 12px;
   color: var(--text3);
@@ -528,7 +762,6 @@ textarea.finput {
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
-
 .score-circle {
   width: 72px;
   height: 72px;
@@ -542,19 +775,10 @@ textarea.finput {
   flex-shrink: 0;
   border: 2px solid;
 }
-
 .score-msg { flex: 1; }
-
-.score-msg-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
+.score-msg-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
 .score-msg-sub { font-size: 13px; color: var(--text2); line-height: 1.5; }
-
 .check-list { display: flex; flex-direction: column; gap: 2px; }
-
 .check-row {
   display: flex;
   align-items: center;
@@ -564,9 +788,7 @@ textarea.finput {
   font-size: 13px;
   background: var(--bg2);
 }
-
 .check-icon { font-size: 16px; flex-shrink: 0; }
-
 .check-ok { color: var(--success); }
 .check-fail { color: var(--danger); font-weight: 600; }
 
@@ -576,7 +798,6 @@ textarea.finput {
   text-align: center;
   padding: 60px 0;
 }
-
 .success-icon {
   width: 72px;
   height: 72px;
@@ -589,7 +810,6 @@ textarea.finput {
   font-size: 28px;
   margin: 0 auto 24px;
 }
-
 .ticket-id {
   font-family: 'Unbounded', sans-serif;
   font-size: 22px;
@@ -598,7 +818,6 @@ textarea.finput {
   margin-bottom: 8px;
   letter-spacing: 0.05em;
 }
-
 .success-sub {
   font-size: 14px;
   color: var(--text2);
@@ -606,7 +825,6 @@ textarea.finput {
   max-width: 420px;
   margin: 0 auto 32px;
 }
-
 .what-next {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -616,7 +834,6 @@ textarea.finput {
   max-width: 420px;
   margin: 0 auto;
 }
-
 .what-next-title {
   font-size: 11px;
   font-weight: 700;
@@ -625,7 +842,6 @@ textarea.finput {
   color: var(--text3);
   margin-bottom: 14px;
 }
-
 .next-item {
   display: flex;
   gap: 12px;
@@ -636,9 +852,7 @@ textarea.finput {
   color: var(--text2);
   line-height: 1.5;
 }
-
 .next-item:last-child { border-bottom: none; }
-
 .next-n {
   width: 22px;
   height: 22px;
@@ -670,7 +884,35 @@ textarea.finput {
 </head>
 <body>
 
+<!-- ── AUTH GATE ── -->
+<div id="auth-gate" class="auth-gate">
+  <div class="auth-card">
+    <div class="auth-logo">VIYAR<span>.</span>MEDIA</div>
+    <div class="auth-title">Бриф на медіавиробництво</div>
+    <div class="auth-sub">Увійдіть через корпоративний Google-акаунт щоб розпочати заповнення брифу.</div>
+    <button class="auth-google-btn" id="google-signin-btn" onclick="handleGoogleSignIn()">
+      <svg width="18" height="18" viewBox="0 0 18 18">
+        <path d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z" fill="#4285F4"/>
+        <path d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.01c-.72.49-1.63.78-2.7.78-2.08 0-3.84-1.4-4.47-3.29H1.82v2.07A8 8 0 008.98 17z" fill="#34A853"/>
+        <path d="M4.51 10.54A4.76 4.76 0 014.26 9c0-.53.09-1.05.25-1.54V5.39H1.82a8 8 0 000 7.22l2.69-2.07z" fill="#FBBC05"/>
+        <path d="M8.98 4.17c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.82 5.39l2.69 2.07c.63-1.89 2.39-3.29 4.47-3.29z" fill="#EA4335"/>
+      </svg>
+      Увійти через Google
+    </button>
+    <div class="auth-note">Тільки для @viyar.com акаунтів. Ваші дані автоматично підставляться у бриф.</div>
+  </div>
+</div>
+
+<!-- ── MAIN APP ── -->
+<div id="main-app" style="display:none">
 <div class="container">
+
+  <!-- USER BAR -->
+  <div class="user-bar" id="user-bar">
+    <div class="user-avatar-placeholder" id="user-avatar-ph">?</div>
+    <span class="user-name" id="user-name-label">—</span>
+    <button class="user-logout" onclick="handleSignOut()">Вийти</button>
+  </div>
 
   <!-- HEADER -->
   <div class="header">
@@ -685,7 +927,7 @@ textarea.finput {
   <!-- PROGRESS -->
   <div class="progress-wrap">
     <div class="progress-top">
-      <span class="progress-label" id="prog-label">Крок 1 з 7</span>
+      <span class="progress-label" id="prog-label">Крок 1 з 6</span>
       <span class="progress-pct" id="prog-pct">0%</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
@@ -694,16 +936,15 @@ textarea.finput {
       <span class="step-dot" onclick="goStep(1)">Ціль</span>
       <span class="step-dot" onclick="goStep(2)">Аудиторія</span>
       <span class="step-dot" onclick="goStep(3)">Формат</span>
-      <span class="step-dot" onclick="goStep(4)">Стилістика</span>
-      <span class="step-dot" onclick="goStep(5)">Логістика</span>
-      <span class="step-dot" onclick="goStep(6)">Перевірка</span>
+      <span class="step-dot" onclick="goStep(4)">Логістика</span>
+      <span class="step-dot" onclick="goStep(5)">Перевірка</span>
     </div>
   </div>
 
   <!-- ── STEP 0: ЗАМОВНИК ── -->
   <div class="step-panel active" id="step-0">
     <div class="step-header">
-      <div class="step-num">Крок 01 / 07</div>
+      <div class="step-num">Крок 01 / 06</div>
       <div class="step-title">Хто замовляє</div>
       <div class="step-desc">Вкажіть контакти — лід продакшену зв'яжеться з вами для уточнень і підтвердження задачі.</div>
     </div>
@@ -713,46 +954,90 @@ textarea.finput {
         <div>
           <div class="flabel">Ім'я та прізвище <span class="req">*</span></div>
           <input class="finput" type="text" id="f-name" placeholder="Аліна Силенок">
+          <div class="field-error" id="err-name">Вкажіть ім'я</div>
         </div>
         <div>
-          <div class="flabel">ЦФО / підрозділ <span class="req">*</span></div>
-          <select class="finput" id="f-dept">
+          <div class="flabel">Посада / роль <span class="req">*</span></div>
+          <select class="finput" id="f-role">
             <option value="">— оберіть —</option>
-            <option>Гавела 23 (шоурум)</option>
-            <option>Меблі Pro / ViyarPro</option>
-            <option>Польща</option>
-            <option>Академія</option>
-            <option>Бренд Віяр</option>
-            <option>Фурнітура</option>
-            <option>Фасади / ViyarFronts</option>
-            <option>Плита / ДСП</option>
-            <option>Камінь / ViyarStone</option>
-            <option>Розсувні / РС</option>
-            <option>Метал / ViyarMetal</option>
-            <option>Освітлення / Lumine</option>
-            <option>Кафе Meridian</option>
-            <option>Виробництво</option>
-            <option>Експорт</option>
-            <option>Техніка</option>
-            <option>HR / Бренд роботодавця</option>
+            <option>Замовник</option>
+            <option>Маркетолог</option>
+            <option>Менеджер продукту</option>
+            <option>HR</option>
+            <option>Директор напряму</option>
             <option>Інше</option>
           </select>
+          <div class="field-error" id="err-role">Оберіть роль</div>
         </div>
       </div>
     </div>
 
     <div class="field-group">
-      <div class="field-grid">
-        <div>
-          <div class="flabel">Telegram <span class="req">*</span></div>
-          <input class="finput" type="text" id="f-tg" placeholder="@username">
-          <div class="fhint">Для швидкого зв'язку по задачі</div>
+      <div class="flabel">ЦФО / підрозділ <span class="req">*</span></div>
+      <select class="finput" id="f-dept">
+        <option value="">— оберіть —</option>
+        <option>Гавела 23 (шоурум)</option>
+        <option>Меблі Pro / ViyarPro</option>
+        <option>Польща</option>
+        <option>Академія</option>
+        <option>Бренд Віяр</option>
+        <option>Фурнітура</option>
+        <option>Фасади / ViyarFronts</option>
+        <option>Плита / ДСП</option>
+        <option>Камінь / ViyarStone</option>
+        <option>Розсувні / РС</option>
+        <option>Метал / ViyarMetal</option>
+        <option>Освітлення / Lumine</option>
+        <option>Кафе Meridian</option>
+        <option>Виробництво</option>
+        <option>Експорт</option>
+        <option>Техніка</option>
+        <option>HR / Бренд роботодавця</option>
+        <option>Інше</option>
+      </select>
+      <div class="field-error" id="err-dept">Оберіть підрозділ</div>
+    </div>
+
+    <div class="field-group">
+      <div class="flabel">Стейкхолдери / хто погоджує</div>
+      <input class="finput" type="text" id="f-stakeholders" placeholder="Напр: Олена Ковтун (директор маркетингу), @petro_kh">
+      <div class="fhint">Хто має право фінального погодження контенту</div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="step-header" style="margin-bottom:20px">
+      <div class="step-title" style="font-size:16px">Контакт для зв'язку</div>
+    </div>
+
+    <div class="field-group">
+      <div class="flabel">Спосіб зв'язку <span class="req">*</span></div>
+      <div class="contact-toggle">
+        <button class="ctog-btn active" id="ctog-tg" onclick="setContactMode('tg')">✈ Telegram</button>
+        <button class="ctog-btn" id="ctog-phone" onclick="setContactMode('phone')">📱 Телефон</button>
+      </div>
+
+      <!-- Telegram -->
+      <div id="contact-tg">
+        <input class="finput" type="text" id="f-tg" placeholder="@username">
+        <div class="fhint">Для швидкого зв'язку по задачі</div>
+        <div class="field-error" id="err-contact">Вкажіть Telegram або телефон</div>
+      </div>
+
+      <!-- Phone -->
+      <div id="contact-phone" style="display:none">
+        <div class="phone-wrap">
+          <div class="phone-prefix">
+            <select id="f-phone-code" onchange="updateProgress()">
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+1">🇺🇸 +1</option>
+            </select>
+          </div>
+          <input class="finput" type="tel" id="f-phone" placeholder="67 123 4567" oninput="validatePhone(this)" style="flex:1">
         </div>
-        <div>
-          <div class="flabel">Маркетолог / відповідальний</div>
-          <input class="finput" type="text" placeholder="Ім'я або @username">
-          <div class="fhint">Хто погоджує контент з боку бізнесу</div>
-        </div>
+        <div class="field-error" id="err-phone">Введіть коректний номер</div>
       </div>
     </div>
   </div>
@@ -760,119 +1045,220 @@ textarea.finput {
   <!-- ── STEP 1: ЦІЛЬ ── -->
   <div class="step-panel" id="step-1">
     <div class="step-header">
-      <div class="step-num">Крок 02 / 07</div>
+      <div class="step-num">Крок 02 / 06</div>
       <div class="step-title">Ціль і меседж</div>
       <div class="step-desc">Найважливіший розділ. Продакшен починає роботу тільки коли розуміє навіщо це відео.</div>
     </div>
 
     <div class="warn-box">
-      ⚠ Більшість брифів повертаються саме тут. Якщо не можете сформулювати меседж одним реченням — значить задача ще не готова до виробництва.
+      ⚠ Більшість брифів повертаються саме тут. Якщо не можете сформулювати меседж одним реченням — задача ще не готова до виробництва.
     </div>
 
     <div class="field-group">
       <div class="flabel">Бізнес-ціль <span class="req">*</span></div>
       <div class="tag-group" id="goal-tags">
-        <span class="tag" onclick="tog(this,'on')">Продати товар / колекцію</span>
-        <span class="tag" onclick="tog(this,'on')">Запустити акцію</span>
-        <span class="tag" onclick="tog(this,'on')">Привести в шоурум / на сайт</span>
-        <span class="tag" onclick="tog(this,'on')">Підвищити впізнаваність</span>
-        <span class="tag" onclick="tog(this,'on')">Залучити B2B партнерів</span>
-        <span class="tag" onclick="tog(this,'on')">Навчити / пояснити продукт</span>
-        <span class="tag" onclick="tog(this,'on')">Рекрутинг / EVP</span>
-        <span class="tag" onclick="tog(this,'on')">Захід / анонс / звіт</span>
-        <span class="tag" onclick="tog(this,'on')">Внутрішній контент</span>
+        <!-- Growth & Sales -->
+        <span class="tag" data-cat="growth" onclick="tog(this,'on')">Продати товар / колекцію</span>
+        <span class="tag" data-cat="growth" onclick="tog(this,'on')">Конвертувати в заявку</span>
+        <span class="tag" data-cat="growth" onclick="tog(this,'on')">Привести в шоурум / на сайт</span>
+        <span class="tag" data-cat="growth" onclick="tog(this,'on')">Запустити акцію</span>
+        <!-- Brand -->
+        <span class="tag" data-cat="brand" onclick="tog(this,'on')">Підвищити впізнаваність</span>
+        <span class="tag" data-cat="brand" onclick="tog(this,'on')">Іміджева кампанія</span>
+        <span class="tag" data-cat="brand" onclick="tog(this,'on')">Репортаж / виробництво</span>
+        <!-- Education -->
+        <span class="tag" data-cat="edu" onclick="tog(this,'on')">Навчити / пояснити продукт</span>
+        <span class="tag" data-cat="edu" onclick="tog(this,'on')">Академія / ViyarPro</span>
+        <span class="tag" data-cat="edu" onclick="tog(this,'on')">Воркшоп / інструкція</span>
+        <!-- Community -->
+        <span class="tag" data-cat="comm" onclick="tog(this,'on')">Залучити B2B партнерів</span>
+        <span class="tag" data-cat="comm" onclick="tog(this,'on')">Захід / анонс / звіт</span>
+        <span class="tag" data-cat="comm" onclick="tog(this,'on')">Відео для Телеграм</span>
+        <!-- Localization -->
+        <span class="tag" data-cat="local" onclick="tog(this,'on')">Польський ринок</span>
+        <span class="tag" data-cat="local" onclick="tog(this,'on')">Адаптація EN/PL</span>
+        <!-- Internal -->
+        <span class="tag" data-cat="hr" onclick="tog(this,'on')">Рекрутинг / EVP</span>
+        <span class="tag" data-cat="hr" onclick="tog(this,'on')">Внутрішній контент</span>
+        <span class="tag" data-cat="hr" onclick="tog(this,'on')">Заставки / YouTube</span>
       </div>
     </div>
 
     <div class="field-group">
       <div class="flabel">Головний меседж — одне речення <span class="req">*</span></div>
-      <input class="finput" type="text" id="f-msg" placeholder="Напр: Viyar Stone — замір та монтаж за 3 дні у Варшаві">
+      <input class="finput" type="text" id="f-msg" placeholder="Напр: Рекламна кампанія В2С Польща — замір та монтаж за 3 дні у Варшаві">
       <div class="fhint">Суть: що людина має зрозуміти після перегляду. Не слоган — факт або обіцянка.</div>
+      <div class="field-error" id="err-msg">Сформулюйте головний меседж</div>
     </div>
 
     <div class="field-group">
       <div class="flabel">Що глядач має зробити після перегляду? <span class="req">*</span></div>
       <div class="tag-group" id="cta-tags">
-        <span class="tag" onclick="tog(this,'on')">Перейти за посиланням</span>
+        <span class="tag" onclick="tog(this,'on')">Перейти на сайт</span>
         <span class="tag" onclick="tog(this,'on')">Записатись / залишити заявку</span>
         <span class="tag" onclick="tog(this,'on')">Прийти в шоурум</span>
+        <span class="tag" onclick="tog(this,'on')">Написати в директ / Telegram</span>
+        <span class="tag" onclick="tog(this,'on')">Подзвонити</span>
         <span class="tag" onclick="tog(this,'on')">Зберегти / поширити</span>
-        <span class="tag" onclick="tog(this,'on')">Написати в директ</span>
+        <span class="tag" onclick="tog(this,'on')">Підписатись на канал</span>
+        <span class="tag" onclick="tog(this,'on')">Зареєструватись на захід</span>
+        <span class="tag" onclick="tog(this,'on')">Переглянути наступне відео</span>
         <span class="tag" onclick="tog(this,'on')">Впізнати бренд / запам'ятати</span>
-        <span class="tag" onclick="tog(this,'on')">Нічого — інформування</span>
+        <span class="tag" onclick="tog(this,'on')">Нічого — чисте інформування</span>
       </div>
     </div>
 
     <div class="field-group">
       <div class="flabel">KPI — як виміряємо успіх?</div>
       <div class="tag-group" id="kpi-tags">
-        <span class="tag on-s" onclick="tog(this,'on-s')">Охоплення / перегляди</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Кліки / переходи</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Заявки</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Продажі</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Збережень / шерів</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Коментарі / залученість</span>
-        <span class="tag on-s" onclick="tog(this,'on-s')">Без KPI — внутрішнє</span>
+        <span class="tag on-s" onclick="tog(this,'on-s')">Перегляди / охоплення</span>
+        <span class="tag" onclick="tog(this,'on-s')">Кліки / CTR</span>
+        <span class="tag" onclick="tog(this,'on-s')">Заявки / ліди</span>
+        <span class="tag" onclick="tog(this,'on-s')">Продажі / конверсія</span>
+        <span class="tag" onclick="tog(this,'on-s')">ER — лайки, коментарі</span>
+        <span class="tag" onclick="tog(this,'on-s')">Збережень / шерів</span>
+        <span class="tag" onclick="tog(this,'on-s')">Підписники</span>
+        <span class="tag" onclick="tog(this,'on-s')">Відвідуваність сайту</span>
+        <span class="tag" onclick="tog(this,'on-s')">Впізнаваність (brand lift)</span>
+        <span class="tag" onclick="tog(this,'on-s')">Без KPI — внутрішнє</span>
       </div>
+      <div class="fhint">Оберіть усі релевантні метрики</div>
     </div>
   </div>
 
   <!-- ── STEP 2: АУДИТОРІЯ ── -->
   <div class="step-panel" id="step-2">
     <div class="step-header">
-      <div class="step-num">Крок 03 / 07</div>
+      <div class="step-num">Крок 03 / 06</div>
       <div class="step-title">Аудиторія</div>
       <div class="step-desc">Продакшен підбирає темп, мову і стиль монтажу під конкретну людину. "Всі" — не аудиторія.</div>
     </div>
 
     <div class="field-group">
-      <div class="flabel">Хто ця людина? <span class="req">*</span></div>
-      <textarea class="finput" id="f-aud" rows="3" placeholder="Напр: жінки 28–42, планують ремонт у новобудові, бюджет на кухню 80–150 тис. Або: B2B — дизайнери інтер'єрів Варшави, вже знають бренд." oninput="charCount(this,'cc-aud',250)"></textarea>
-      <div class="char-count" id="cc-aud">0 / 250</div>
+      <div class="flabel">Цільова когорта <span class="req">*</span></div>
+      <div class="tag-group" id="cohort-tags">
+        <span class="tag" onclick="tog(this,'on')">Кінцевий споживач B2C</span>
+        <span class="tag" onclick="tog(this,'on')">Дизайнери інтер'єрів</span>
+        <span class="tag" onclick="tog(this,'on')">Забудовники / девелопери</span>
+        <span class="tag" onclick="tog(this,'on')">B2B партнери</span>
+        <span class="tag" onclick="tog(this,'on')">Польська аудиторія</span>
+        <span class="tag" onclick="tog(this,'on')">Нова аудиторія (холодна)</span>
+        <span class="tag" onclick="tog(this,'on')">Ретаргет (вже знають нас)</span>
+        <span class="tag" onclick="tog(this,'on')">Наявні клієнти (лояльні)</span>
+        <span class="tag" onclick="tog(this,'on')">Студійні проєкти / навчання</span>
+        <span class="tag" onclick="tog(this,'on')">Кандидати на роботу</span>
+      </div>
     </div>
 
     <div class="field-group">
-      <div class="flabel">Що аудиторія вже знає про продукт?</div>
+      <div class="flabel">Опишіть людину детальніше <span class="req">*</span></div>
+      <textarea class="finput" id="f-aud" rows="3"
+        placeholder="Напр: жінки 28–42, планують ремонт у новобудові, Київ/Варшава, бюджет на кухню 80–150 тис. Або: архітектори, вже знають ViyarPro, хочуть навчити команду."
+        oninput="charCount(this,'cc-aud',300)"></textarea>
+      <div class="char-count" id="cc-aud">0 / 300</div>
+      <div class="field-error" id="err-aud">Опишіть аудиторію детальніше (мін. 20 символів)</div>
+    </div>
+
+    <div class="field-group">
+      <div class="flabel">Рівень знайомства з брендом / продуктом</div>
       <div class="tag-group" id="aware-tags">
-        <span class="tag" onclick="togSingle(this,'aware-tags')">Нічого — перше знайомство</span>
+        <span class="tag" onclick="togSingle(this,'aware-tags')">Новий — вперше бачать</span>
         <span class="tag" onclick="togSingle(this,'aware-tags')">Знає бренд, але не продукт</span>
         <span class="tag" onclick="togSingle(this,'aware-tags')">Знає продукт, ще вагається</span>
-        <span class="tag" onclick="togSingle(this,'aware-tags')">Вже клієнт — лояльна аудиторія</span>
+        <span class="tag" onclick="togSingle(this,'aware-tags')">Клієнт студійного проєкту</span>
+        <span class="tag" onclick="togSingle(this,'aware-tags')">Лояльний клієнт / спільнота</span>
       </div>
     </div>
 
     <div class="field-group">
-      <div class="flabel">Мова відео <span class="req">*</span></div>
+      <div class="flabel">Мова контенту <span class="req">*</span></div>
       <div class="tag-group" id="lang-tags">
-        <span class="tag" onclick="togSingle(this,'lang-tags')">Українська</span>
-        <span class="tag" onclick="togSingle(this,'lang-tags')">Польська</span>
-        <span class="tag" onclick="togSingle(this,'lang-tags')">Англійська</span>
-        <span class="tag" onclick="togSingle(this,'lang-tags')">Без слів / тільки титри</span>
-        <span class="tag" onclick="togSingle(this,'lang-tags')">Кілька мовних версій</span>
+        <span class="tag" onclick="tog(this,'on')">Українська</span>
+        <span class="tag" onclick="tog(this,'on')">Польська</span>
+        <span class="tag" onclick="tog(this,'on')">Англійська</span>
+        <span class="tag" onclick="tog(this,'on')">Тільки титри (без голосу)</span>
+        <span class="tag" onclick="tog(this,'on')">Декілька мовних версій</span>
       </div>
+      <div class="fhint">Можна обрати кілька мов</div>
     </div>
   </div>
 
   <!-- ── STEP 3: ФОРМАТ ── -->
   <div class="step-panel" id="step-3">
     <div class="step-header">
-      <div class="step-num">Крок 04 / 07</div>
+      <div class="step-num">Крок 04 / 06</div>
       <div class="step-title">Формат і канал</div>
       <div class="step-desc">Від цього залежить виконавець, SLA і технічне ТЗ.</div>
     </div>
 
     <div class="field-group">
       <div class="flabel">Тип контенту <span class="req">*</span></div>
-      <div class="tag-group" id="type-tags">
-        <span class="tag" onclick="tog(this,'on-w')">Reels / вертикальне відео</span>
-        <span class="tag" onclick="tog(this,'on-w')">Рекламне відео</span>
-        <span class="tag" onclick="tog(this,'on-w')">Відеоурок / інструкція</span>
-        <span class="tag" onclick="tog(this,'on-w')">Інтерв'ю / воркшоп</span>
-        <span class="tag" onclick="tog(this,'on-w')">Іміджева фотозйомка</span>
-        <span class="tag" onclick="tog(this,'on-w')">Продуктове фото</span>
-        <span class="tag" onclick="tog(this,'on-w')">Анімація / моушен</span>
-        <span class="tag" onclick="tog(this,'on-w')">AI-контент</span>
-        <span class="tag" onclick="tog(this,'on-w')">Заставка / захід</span>
+      <div class="ctype-grid" id="ctype-grid">
+
+        <div class="ctype-card" onclick="ctypeToggle(this,'video')">
+          <div class="ctype-badge">✓ обрано</div>
+          <div class="ctype-top">
+            <div class="ctype-icon">🎬</div>
+            <div class="ctype-name">Відео</div>
+          </div>
+          <div class="ctype-note">Reels, рекламне, YouTube, інструкції, інтерв'ю</div>
+        </div>
+
+        <div class="ctype-card" onclick="ctypeToggle(this,'photo-image')">
+          <div class="ctype-badge">✓ обрано</div>
+          <div class="ctype-top">
+            <div class="ctype-icon">📸</div>
+            <div class="ctype-name">Фото іміджове</div>
+          </div>
+          <div class="ctype-note">Кампанії, репортаж, фотосесія, обробка</div>
+        </div>
+
+        <div class="ctype-card" onclick="ctypeToggle(this,'photo-product')">
+          <div class="ctype-badge">✓ обрано</div>
+          <div class="ctype-top">
+            <div class="ctype-icon">🛋️</div>
+            <div class="ctype-name">Фото продуктове</div>
+          </div>
+          <div class="ctype-note">Каталог, сайт, маркетплейс, картки товарів</div>
+        </div>
+
+        <div class="ctype-card" onclick="ctypeToggle(this,'motion')">
+          <div class="ctype-badge">✓ обрано</div>
+          <div class="ctype-top">
+            <div class="ctype-icon">✨</div>
+            <div class="ctype-name">Моушен-дизайн</div>
+          </div>
+          <div class="ctype-note">Анімація, заставки, графіка, AI-контент</div>
+        </div>
+
+      </div>
+
+      <!-- Photo product sub-flow -->
+      <div class="photo-sub" id="photo-product-sub">
+        <div class="photo-sub-label">📦 Потік фото для сайту</div>
+        <div class="tag-group">
+          <span class="tag" onclick="tog(this,'on-w')">Нові SKU на сайт</span>
+          <span class="tag" onclick="tog(this,'on-w')">Оновлення картки товару</span>
+          <span class="tag" onclick="tog(this,'on-w')">Каталог для друку</span>
+          <span class="tag" onclick="tog(this,'on-w')">Маркетплейс</span>
+          <span class="tag" onclick="tog(this,'on-w')">Соцмережі (продуктові)</span>
+        </div>
+        <div style="margin-top:10px">
+          <input class="finput" type="number" placeholder="Кількість позицій / SKU" id="f-sku-count" style="margin-bottom:0" oninput="updateProgress()">
+        </div>
+      </div>
+
+      <!-- Video sub-options -->
+      <div class="photo-sub" id="video-sub" style="border-color: rgba(200,255,0,0.2); background: rgba(200,255,0,0.04)">
+        <div class="photo-sub-label" style="color: var(--accent)">🎬 Деталі відео</div>
+        <div class="tag-group">
+          <span class="tag" onclick="tog(this,'on')">Reels / вертикальне</span>
+          <span class="tag" onclick="tog(this,'on')">Рекламне відео</span>
+          <span class="tag" onclick="tog(this,'on')">Відеоурок / інструкція</span>
+          <span class="tag" onclick="tog(this,'on')">Інтерв'ю / воркшоп</span>
+          <span class="tag" onclick="tog(this,'on')">Виробничий репортаж</span>
+          <span class="tag" onclick="tog(this,'on')">Захід / подія</span>
+        </div>
       </div>
     </div>
 
@@ -883,18 +1269,18 @@ textarea.finput {
         <span class="tag" onclick="tog(this,'on')">YouTube</span>
         <span class="tag" onclick="tog(this,'on')">TikTok</span>
         <span class="tag" onclick="tog(this,'on')">Telegram</span>
-        <span class="tag" onclick="tog(this,'on')">Сайт viyar.ua</span>
+        <span class="tag" onclick="tog(this,'on')">Сайт viyar.com</span>
         <span class="tag" onclick="tog(this,'on')">Маркетплейс</span>
         <span class="tag" onclick="tog(this,'on')">Email-розсилка</span>
         <span class="tag" onclick="tog(this,'on')">Екрани в шоурумі</span>
-        <span class="tag" onclick="tog(this,'on')">Сервер (внутрішнє)</span>
+        <span class="tag" onclick="tog(this,'on')">Внутрішній сервер</span>
       </div>
     </div>
 
     <div class="field-grid">
       <div class="field-group" style="margin-bottom:0">
         <div class="flabel">Тривалість</div>
-        <select class="finput">
+        <select class="finput" id="f-duration">
           <option>До 15 сек (гачок)</option>
           <option>15–30 сек</option>
           <option>30–60 сек</option>
@@ -907,105 +1293,47 @@ textarea.finput {
       <div class="field-group" style="margin-bottom:0">
         <div class="flabel">Готові матеріали?</div>
         <select class="finput" id="f-materials">
-          <option>Ні — зйомка з нуля</option>
-          <option>Є сирий матеріал (фото / відео)</option>
-          <option>Є готовий — тільки монтаж</option>
-          <option>Є все — тільки дизайн</option>
+          <option value="zero">Медіа під ключ (зйомка + монтаж)</option>
+          <option value="edit">Тільки монтаж (є сирий матеріал)</option>
+          <option value="shoot">Тільки зйомка (монтаж не потрібен)</option>
         </select>
       </div>
     </div>
   </div>
 
-  <!-- ── STEP 4: СТИЛІСТИКА ── -->
+  <!-- ── STEP 4: ЛОГІСТИКА ── -->
   <div class="step-panel" id="step-4">
     <div class="step-header">
-      <div class="step-num">Крок 05 / 07</div>
-      <div class="step-title">Стилістика</div>
-      <div class="step-desc">Цей розділ читає арт-директор до зйомки. Чим точніше — тим менше ітерацій.</div>
-    </div>
-
-    <div class="field-group">
-      <div class="flabel">Настрій відео <span class="req">*</span></div>
-      <div class="mood-grid" id="mood-grid">
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">🌿</div>
-          <div class="mood-label">Спокійно·Мінімалізм</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">⚡</div>
-          <div class="mood-label">Енергійно·Динаміка</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">✨</div>
-          <div class="mood-label">Преміум·Розкіш</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">😄</div>
-          <div class="mood-label">Легко·З гумором</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">🏭</div>
-          <div class="mood-label">Виробниче·Реальне</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">📐</div>
-          <div class="mood-label">Технічно·Точно</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">🌍</div>
-          <div class="mood-label">Міжнародно·Нейтрально</div>
-        </div>
-        <div class="mood-card" onclick="toggleMood(this)">
-          <div class="mood-icon">💬</div>
-          <div class="mood-label">Особисто·Від людини</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <div class="flabel">Референс — посилання на схожий стиль</div>
-      <input class="finput" type="url" id="f-ref" placeholder="https://instagram.com/... або https://youtube.com/...">
-      <div class="fhint">Бренд з іншої ніші чий стиль вам подобається — це теж гарний референс.</div>
-    </div>
-
-    <div class="field-group">
-      <div class="flabel">Герої / люди у кадрі</div>
-      <div class="tag-group" id="talent-tags">
-        <span class="tag" onclick="tog(this,'on')">Без людей — тільки продукт</span>
-        <span class="tag" onclick="tog(this,'on')">Співробітник Viyar</span>
-        <span class="tag" onclick="tog(this,'on')">Запрошений актор / модель</span>
-        <span class="tag" onclick="tog(this,'on')">Клієнт / реальна людина</span>
-        <span class="tag" onclick="tog(this,'on')">Є конкретна людина</span>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <div class="flabel">Що точно НЕ робити</div>
-      <textarea class="finput" rows="2" placeholder="Напр: не показувати незавершений зал, без музики з текстом, без синього кольору" oninput="charCount(this,'cc-dont',200)"></textarea>
-      <div class="char-count" id="cc-dont">0 / 200</div>
-    </div>
-  </div>
-
-  <!-- ── STEP 5: ЛОГІСТИКА ── -->
-  <div class="step-panel" id="step-5">
-    <div class="step-header">
-      <div class="step-num">Крок 06 / 07</div>
+      <div class="step-num">Крок 05 / 06</div>
       <div class="step-title">Логістика</div>
-      <div class="step-desc">Дедлайн, бюджет і доступ до локації — все що потрібно для планування.</div>
+      <div class="step-desc">Дедлайн, пріоритет і деталі виробництва.</div>
     </div>
 
-    <div class="field-grid">
-      <div class="field-group">
-        <div class="flabel">Дедлайн публікації <span class="req">*</span></div>
-        <input class="finput" type="date" id="f-dl">
+    <div class="field-group">
+      <div class="flabel">Дедлайн публікації <span class="req">*</span></div>
+      <div class="deadline-wrap">
+        <div class="deadline-quick">
+          <button class="dq-btn" onclick="setDeadlineQuick(this, 3)">+3 дні</button>
+          <button class="dq-btn" onclick="setDeadlineQuick(this, 7)">+1 тиждень</button>
+          <button class="dq-btn" onclick="setDeadlineQuick(this, 14)">+2 тижні</button>
+          <button class="dq-btn" onclick="setDeadlineQuick(this, 30)">+місяць</button>
+          <button class="dq-btn" onclick="setDeadlineQuick(this, 0)">Вибрати дату</button>
+        </div>
+        <input class="finput" type="date" id="f-dl" oninput="updateProgress()">
+        <div class="field-error" id="err-dl">Вкажіть дедлайн</div>
       </div>
-      <div class="field-group">
-        <div class="flabel">Гнучкість дедлайну</div>
-        <select class="finput">
-          <option>Жорсткий — прив'язаний до події</option>
-          <option>Бажаний — можна посунути 2–3 дні</option>
-          <option>Гнучкий — орієнтовний місяць</option>
-        </select>
+    </div>
+
+    <div class="field-group">
+      <div class="flabel">Гнучкість дедлайну</div>
+      <div class="tag-group" id="dl-flex-tags">
+        <span class="tag" onclick="togSingle(this,'dl-flex-tags')">Жорсткий — прив'язаний до події</span>
+        <span class="tag" onclick="togSingle(this,'dl-flex-tags')">Бажаний — ±2–3 дні</span>
+        <span class="tag" onclick="togSingle(this,'dl-flex-tags')">Гнучкий — орієнтовний місяць</span>
+      </div>
+      <!-- Event field shows if "attached to event" selected -->
+      <div class="event-field" id="event-field">
+        <input type="text" placeholder="Назва події або дата заходу (напр: Відкриття шоуруму Варшава 15.09)">
       </div>
     </div>
 
@@ -1013,15 +1341,15 @@ textarea.finput {
       <div class="flabel">Пріоритет <span class="req">*</span></div>
       <div class="prio-grid" id="prio-grid">
         <div class="pcard" onclick="setPrio(this,1)">
-          <div class="pt">Терміново</div>
-          <div class="ps">до 3 днів · потрібне обґрунтування</div>
+          <div class="pt">🔴 Терміново</div>
+          <div class="ps">до 3 днів<br>потрібне обґрунтування</div>
         </div>
         <div class="pcard" onclick="setPrio(this,2)">
-          <div class="pt">Плановий</div>
+          <div class="pt">🟡 Плановий</div>
           <div class="ps">до 1 тижня</div>
         </div>
         <div class="pcard" onclick="setPrio(this,3)">
-          <div class="pt">Стандартний</div>
+          <div class="pt">🟢 Стандартний</div>
           <div class="ps">2+ тижні</div>
         </div>
       </div>
@@ -1030,12 +1358,13 @@ textarea.finput {
 
     <div class="field-grid">
       <div class="field-group" style="margin-bottom:0">
-        <div class="flabel">Бюджет (грн)</div>
-        <input class="finput" type="number" placeholder="0 = в рамках базового">
+        <div class="flabel">Бюджет (грн) <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--text3)">(необов'язково)</span></div>
+        <input class="finput" type="number" id="f-budget" placeholder="0 = в рамках базового" oninput="updateProgress()">
       </div>
       <div class="field-group" style="margin-bottom:0">
-        <div class="flabel">Локація зйомки</div>
-        <select class="finput">
+        <div class="flabel">Локація зйомки <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--text3)">(необов'язково)</span></div>
+        <select class="finput" id="f-location">
+          <option value="">— не визначено —</option>
           <option>Шоурум Гавела 23</option>
           <option>Виробництво Васильків</option>
           <option>Польща (Варшава)</option>
@@ -1049,37 +1378,28 @@ textarea.finput {
     <div class="field-divider"></div>
 
     <div class="field-group">
-      <div class="flabel">Доступ до об'єкту / товару</div>
-      <div class="tag-group" id="access-tags">
-        <span class="tag" onclick="tog(this,'on')">Товар готовий — можна знімати</span>
-        <span class="tag" onclick="tog(this,'on')">Потрібно погодити з відповідальним</span>
-        <span class="tag" onclick="tog(this,'on')">Товар ще не в шоурумі</span>
-        <span class="tag" onclick="tog(this,'on')">Виїзд на об'єкт</span>
-      </div>
-    </div>
-
-    <div class="field-group">
       <div class="flabel">Додатково — що ще важливо знати</div>
-      <textarea class="finput" rows="3" placeholder="Сезонність, паралельні кампанії, специфіка продукту, нюанси з брендом партнера..." oninput="charCount(this,'cc-extra',300)"></textarea>
-      <div class="char-count" id="cc-extra">0 / 300</div>
+      <textarea class="finput" rows="3"
+        placeholder="Сезонність, паралельні кампанії, специфіка продукту, нюанси з брендом партнера, побажання щодо голосу або музики..."
+        oninput="charCount(this,'cc-extra',400)"></textarea>
+      <div class="char-count" id="cc-extra">0 / 400</div>
     </div>
   </div>
 
-  <!-- ── STEP 6: ПЕРЕВІРКА ── -->
-  <div class="step-panel" id="step-6">
+  <!-- ── STEP 5: ПЕРЕВІРКА ── -->
+  <div class="step-panel" id="step-5">
     <div class="step-header">
-      <div class="step-num">Крок 07 / 07</div>
+      <div class="step-num">Крок 06 / 06</div>
       <div class="step-title">Перевірка брифу</div>
-      <div class="step-desc">Бриф з заповненістю менше 80% повертається замовнику автоматично.</div>
+      <div class="step-desc">Бриф з заповненістю менше 75% повертається замовнику автоматично.</div>
     </div>
-
     <div id="score-section"></div>
   </div>
 
   <!-- ── NAVIGATION ── -->
   <div class="nav-row" id="nav-row">
     <button class="btn btn-ghost" id="btn-prev" onclick="nav(-1)" style="visibility:hidden">← Назад</button>
-    <span class="nav-step-info" id="nav-info">1 / 7</span>
+    <span class="nav-step-info" id="nav-info">1 / 6</span>
     <button class="btn btn-primary" id="btn-next" onclick="nav(1)">Далі →</button>
   </div>
 
@@ -1091,18 +1411,165 @@ textarea.finput {
     <div class="what-next">
       <div class="what-next-title">Що далі</div>
       <div class="next-item"><div class="next-n">1</div>Лід продакшену перевірить бриф і підтвердить задачу або поверне з питаннями</div>
-      <div class="next-item"><div class="next-n">2</div>Арт-директор розгляне стилістику і за потреби призначить кол для брифінгу</div>
+      <div class="next-item"><div class="next-n">2</div>Арт-директор розгляне тип контенту і за потреби призначить кол для брифінгу</div>
       <div class="next-item"><div class="next-n">3</div>Задача потрапляє в трекер і отримує виконавця та дедлайн виробництва</div>
     </div>
   </div>
 
 </div><!-- /container -->
+</div><!-- /main-app -->
 
 <script>
-let cur = 0;
-const TOTAL = 7;
+// ─────────────────────────────────────────────
+//  GOOGLE AUTH
+// ─────────────────────────────────────────────
+let googleUser = null;
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID'; // replace in production
 
-// ── TAG TOGGLES ──
+function handleGoogleSignIn() {
+  // In production: use google.accounts.id.initialize + prompt
+  // For demo purposes: simulate login
+  const demoUser = {
+    name: 'Аліна Силенок',
+    email: 'a.sylenok@viyar.com',
+    picture: null,
+    initials: 'АС'
+  };
+  onSignedIn(demoUser);
+}
+
+function onSignedIn(user) {
+  googleUser = user;
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('main-app').style.display = 'block';
+
+  // Populate user bar
+  const bar = document.getElementById('user-bar');
+  bar.style.display = 'flex';
+  document.getElementById('user-name-label').textContent = user.name + ' · ' + user.email;
+  const ph = document.getElementById('user-avatar-ph');
+  ph.textContent = user.initials || user.name.charAt(0);
+
+  // Autofill name field
+  const nameField = document.getElementById('f-name');
+  if (nameField && !nameField.value) nameField.value = user.name;
+  updateProgress();
+
+  // Try real Google Sign-In if library loaded
+  if (typeof google !== 'undefined') {
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleGoogleCallback,
+      auto_select: false,
+    });
+  }
+}
+
+function handleGoogleCallback(response) {
+  // Decode JWT to get name/email
+  try {
+    const payload = JSON.parse(atob(response.credential.split('.')[1]));
+    const user = {
+      name: payload.name,
+      email: payload.email,
+      picture: payload.picture,
+      initials: payload.given_name.charAt(0) + (payload.family_name || '').charAt(0)
+    };
+    onSignedIn(user);
+  } catch(e) {}
+}
+
+function handleSignOut() {
+  googleUser = null;
+  document.getElementById('auth-gate').style.display = 'flex';
+  document.getElementById('main-app').style.display = 'none';
+  cur = 0;
+}
+
+// ─────────────────────────────────────────────
+//  CONTACT MODE
+// ─────────────────────────────────────────────
+let contactMode = 'tg';
+
+function setContactMode(mode) {
+  contactMode = mode;
+  document.getElementById('ctog-tg').classList.toggle('active', mode === 'tg');
+  document.getElementById('ctog-phone').classList.toggle('active', mode === 'phone');
+  document.getElementById('contact-tg').style.display = mode === 'tg' ? 'block' : 'none';
+  document.getElementById('contact-phone').style.display = mode === 'phone' ? 'block' : 'none';
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────
+//  PHONE VALIDATION
+// ─────────────────────────────────────────────
+function validatePhone(el) {
+  const digits = el.value.replace(/\D/g,'');
+  const err = document.getElementById('err-phone');
+  if (digits.length > 0 && digits.length < 7) {
+    err.classList.add('visible');
+    el.classList.add('error-field');
+  } else {
+    err.classList.remove('visible');
+    el.classList.remove('error-field');
+  }
+  updateProgress();
+}
+
+function isContactValid() {
+  if (contactMode === 'tg') {
+    return document.getElementById('f-tg').value.trim().length > 1;
+  } else {
+    const digits = (document.getElementById('f-phone').value || '').replace(/\D/g,'');
+    return digits.length >= 7;
+  }
+}
+
+// ─────────────────────────────────────────────
+//  CONTENT TYPE
+// ─────────────────────────────────────────────
+function ctypeToggle(el, type) {
+  el.classList.toggle('on-w');
+  // Show/hide sub-panels
+  document.getElementById('photo-product-sub').classList.toggle(
+    'visible', !!document.querySelector('.ctype-card[onclick*="photo-product"].on-w')
+  );
+  document.getElementById('video-sub').classList.toggle(
+    'visible', !!document.querySelector('.ctype-card[onclick*="video"].on-w')
+  );
+  // "attached to event" logic for deadline
+  const firstDlFlex = document.querySelector('#dl-flex-tags .tag.on');
+  if (firstDlFlex) checkEventField(firstDlFlex.textContent);
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────
+//  DEADLINE
+// ─────────────────────────────────────────────
+function setDeadlineQuick(btn, days) {
+  document.querySelectorAll('.dq-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  if (days > 0) {
+    const d = new Date();
+    d.setDate(d.getDate() + days);
+    const iso = d.toISOString().slice(0,10);
+    document.getElementById('f-dl').value = iso;
+  }
+  updateProgress();
+}
+
+function checkEventField(text) {
+  const ef = document.getElementById('event-field');
+  if (text && text.includes('події')) {
+    ef.classList.add('visible');
+  } else {
+    ef.classList.remove('visible');
+  }
+}
+
+// ─────────────────────────────────────────────
+//  TAG TOGGLES
+// ─────────────────────────────────────────────
 function tog(el, cls) {
   el.classList.toggle(cls);
   updateProgress();
@@ -1110,15 +1577,18 @@ function tog(el, cls) {
 
 function togSingle(el, groupId) {
   const group = el.closest('.tag-group') || document.getElementById(groupId);
-  group.querySelectorAll('.tag').forEach(t => t.className = 'tag');
-  el.classList.add('on');
+  const allTags = group.querySelectorAll('.tag');
+  const isOn = el.classList.contains('on') || el.classList.contains('on-s') ||
+               el.classList.contains('on-w') || el.classList.contains('on-p');
+  allTags.forEach(t => { t.className = 'tag'; });
+  if (!isOn) el.classList.add('on');
+
+  // Event field check
+  if (groupId === 'dl-flex-tags') checkEventField(el.textContent);
   updateProgress();
 }
 
-function toggleMood(el) {
-  el.classList.toggle('on');
-  updateProgress();
-}
+function toggleMood(el) { el.classList.toggle('on'); updateProgress(); }
 
 function setPrio(el, n) {
   document.querySelectorAll('#prio-grid .pcard').forEach(c => c.className = 'pcard');
@@ -1126,7 +1596,9 @@ function setPrio(el, n) {
   updateProgress();
 }
 
-// ── CHAR COUNT ──
+// ─────────────────────────────────────────────
+//  CHAR COUNT
+// ─────────────────────────────────────────────
 function charCount(el, id, max) {
   const n = el.value.length;
   const el2 = document.getElementById(id);
@@ -1135,7 +1607,12 @@ function charCount(el, id, max) {
   updateProgress();
 }
 
-// ── NAVIGATION ──
+// ─────────────────────────────────────────────
+//  NAVIGATION
+// ─────────────────────────────────────────────
+let cur = 0;
+const TOTAL = 6;
+
 function goStep(n) {
   document.getElementById('step-' + cur).classList.remove('active');
   document.querySelectorAll('.step-dot')[cur].classList.remove('active');
@@ -1152,20 +1629,20 @@ function goStep(n) {
 
   if (cur === TOTAL - 1) buildScore();
   updateProgress();
-
-  // smooth scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function nav(d) {
   const next = cur + d;
-  if (next < 0 || next >= TOTAL) return;
-  if (next === TOTAL && d === 1) { submitBrief(); return; }
+  if (next < 0) return;
   if (cur === TOTAL - 1 && d === 1) { submitBrief(); return; }
+  if (next >= TOTAL) return;
   goStep(next);
 }
 
-// ── PROGRESS ──
+// ─────────────────────────────────────────────
+//  PROGRESS / CHECKS
+// ─────────────────────────────────────────────
 function updateProgress() {
   const checks = getChecks();
   const done = checks.filter(c => c.ok).length;
@@ -1175,23 +1652,30 @@ function updateProgress() {
 }
 
 function getChecks() {
+  const nameVal = (document.getElementById('f-name')||{}).value || '';
+  const deptVal = (document.getElementById('f-dept')||{}).value || '';
+  const audVal  = (document.getElementById('f-aud')||{}).value  || '';
+  const msgVal  = (document.getElementById('f-msg')||{}).value  || '';
+  const dlVal   = (document.getElementById('f-dl')||{}).value   || '';
+
   return [
-    { label: 'Ім\'я та ЦФО',            ok: !!(document.getElementById('f-name').value.trim() && document.getElementById('f-dept').value) },
-    { label: 'Telegram / контакт',       ok: !!document.getElementById('f-tg').value.trim() },
-    { label: 'Бізнес-ціль',              ok: document.querySelectorAll('#goal-tags .on').length > 0 },
-    { label: 'Головний меседж',          ok: !!document.getElementById('f-msg').value.trim() },
-    { label: 'CTA — що зробить глядач',  ok: document.querySelectorAll('#cta-tags .on').length > 0 },
-    { label: 'Аудиторія описана',        ok: !!(document.getElementById('f-aud').value.trim().length > 20) },
-    { label: 'Мова відео',               ok: document.querySelectorAll('#lang-tags .on').length > 0 },
-    { label: 'Тип контенту',             ok: document.querySelectorAll('#type-tags .on-w').length > 0 },
-    { label: 'Канал публікації',         ok: document.querySelectorAll('#chan-tags .on').length > 0 },
-    { label: 'Настрій / стилістика',     ok: document.querySelectorAll('#mood-grid .on').length > 0 },
-    { label: 'Дедлайн публікації',       ok: !!document.getElementById('f-dl').value },
-    { label: 'Пріоритет',                ok: !!document.querySelector('#prio-grid .pcard[class*="on-"]') },
+    { label: "Ім'я та підрозділ",         ok: !!(nameVal.trim() && deptVal) },
+    { label: 'Контакт (TG або телефон)',   ok: isContactValid() },
+    { label: 'Бізнес-ціль',               ok: document.querySelectorAll('#goal-tags .on').length > 0 },
+    { label: 'Головний меседж',           ok: msgVal.trim().length > 5 },
+    { label: 'CTA — дія глядача',         ok: document.querySelectorAll('#cta-tags .on').length > 0 },
+    { label: 'Аудиторія описана',         ok: audVal.trim().length > 20 },
+    { label: 'Мова контенту',             ok: document.querySelectorAll('#lang-tags .on').length > 0 },
+    { label: 'Тип контенту',              ok: document.querySelectorAll('.ctype-card.on-w').length > 0 },
+    { label: 'Канал публікації',          ok: document.querySelectorAll('#chan-tags .on').length > 0 },
+    { label: 'Дедлайн публікації',        ok: !!dlVal },
+    { label: 'Пріоритет',                 ok: !!document.querySelector('#prio-grid .pcard[class*="on-"]') },
   ];
 }
 
-// ── BUILD SCORE ──
+// ─────────────────────────────────────────────
+//  SCORE
+// ─────────────────────────────────────────────
 function buildScore() {
   const checks = getChecks();
   const done = checks.filter(c => c.ok).length;
@@ -1201,15 +1685,15 @@ function buildScore() {
   if (pct < 60) {
     scoreColor = 'var(--danger)'; borderColor = 'var(--danger)';
     msg = 'Бриф неповний';
-    msgSub = 'Продакшен поверне бриф з питаннями. Заповніть усі обов\'язкові поля.';
+    msgSub = 'Заповніть обов\'язкові поля — бриф буде повернено.';
   } else if (pct < 85) {
     scoreColor = 'var(--warn)'; borderColor = 'var(--warn)';
     msg = 'Майже готово';
-    msgSub = 'Перевірте незаповнені пункти — особливо меседж та аудиторію.';
+    msgSub = 'Допрацюйте незаповнені пункти — особливо меседж та аудиторію.';
   } else {
     scoreColor = 'var(--success)'; borderColor = 'var(--success)';
     msg = 'Бриф готовий ✓';
-    msgSub = 'Продакшен може починати роботу. Лід отримає задачу одразу після відправки.';
+    msgSub = 'Продакшен може починати. Лід отримає задачу одразу після відправки.';
   }
 
   let html = `
@@ -1240,31 +1724,47 @@ function buildScore() {
   btn.textContent = pct < 60 ? 'Заповніть бриф' : 'Надіслати бриф →';
 }
 
-// ── SUBMIT ──
+// ─────────────────────────────────────────────
+//  SUBMIT
+// ─────────────────────────────────────────────
 function submitBrief() {
+  const checks = getChecks();
+  const done = checks.filter(c => c.ok).length;
+  const pct = Math.round((done / checks.length) * 100);
+  if (pct < 60) return;
+
   const id = 'VB-' + Math.floor(1000 + Math.random() * 9000);
 
-  // Hide form, show success
-  document.getElementById('step-6').style.display = 'none';
+  document.getElementById('step-5').style.display = 'none';
   document.getElementById('nav-row').style.display = 'none';
-  document.getElementById('progress-wrap');
   document.querySelector('.progress-wrap').style.display = 'none';
 
   const panel = document.getElementById('success-panel');
   panel.style.display = 'block';
   document.getElementById('ticket-id').textContent = id;
-
-  // In production: POST to API here
-  // sendToAirtable({ id, name: f-name.value, ... });
 }
 
-// ── INIT ──
-document.querySelectorAll('.finput').forEach(el => {
-  el.addEventListener('input', updateProgress);
-  el.addEventListener('change', updateProgress);
-});
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.finput').forEach(el => {
+    el.addEventListener('input', updateProgress);
+    el.addEventListener('change', updateProgress);
+  });
 
-updateProgress();
+  // dl-flex event watcher
+  document.querySelectorAll('#dl-flex-tags .tag').forEach(t => {
+    t.addEventListener('click', () => {
+      setTimeout(() => {
+        const sel = document.querySelector('#dl-flex-tags .tag.on');
+        if (sel) checkEventField(sel.textContent);
+      }, 50);
+    });
+  });
+
+  updateProgress();
+});
 </script>
 
 </body>
